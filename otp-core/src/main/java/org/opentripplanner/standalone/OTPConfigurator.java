@@ -40,6 +40,8 @@ import org.opentripplanner.routing.impl.GraphServiceBeanImpl;
 import org.opentripplanner.routing.impl.GraphServiceImpl;
 import org.opentripplanner.routing.impl.RetryingPathServiceImpl;
 import org.opentripplanner.routing.impl.LongDistancePathService;
+import org.opentripplanner.routing.impl.raptor.Raptor;
+import org.opentripplanner.graph_builder.impl.raptor.RaptorDataBuilder;
 import org.opentripplanner.routing.services.GraphService;
 import org.opentripplanner.routing.services.PathService;
 import org.opentripplanner.routing.services.RemainingWeightHeuristicFactory;
@@ -94,8 +96,7 @@ public class OTPConfigurator {
             pathService.setTimeout(10);
             cpf.bind(PathService.class, pathService);
         } else {
-            RetryingPathServiceImpl pathService = new RetryingPathServiceImpl();
-            pathService.setFirstPathTimeout(10.0);
+            Raptor pathService = new Raptor();
             pathService.setMultiPathTimeout(1.0);
             cpf.bind(PathService.class, pathService);
             cpf.bind(RemainingWeightHeuristicFactory.class, 
@@ -214,6 +215,7 @@ public class OTPConfigurator {
             }
             GtfsGraphBuilderImpl gtfsBuilder = new GtfsGraphBuilderImpl(gtfsBundles);
             graphBuilder.addGraphBuilder(gtfsBuilder);
+            graphBuilder.addGraphBuilder(new RaptorDataBuilder());
             // When using the simplified path service, or when there is no street data,
             // link stops to each other based on distance only, unless user has requested linking
             // based on transfers.txt.
