@@ -22,6 +22,7 @@ depends on otp-routing.
   <logger name="org.opentripplanner.analyst" level="info" />
   <logger name="org.opentripplanner.routing" level="info" />
   <logger name="org.opentripplanner.routing.impl.RetryingPathServiceImpl" level="debug" />
+  <logger name="org.opentripplanner.routing.impl.raptor.Raptor" level="debug" />
   <logger name="org.opentripplanner.routing.algorithm.GenericAStar" level="debug" />
   <!-- Avoid printing debug messages about free-flowing vertices -->
   <logger name="org.opentripplanner.routing.vertextype.IntersectionVertex" level="info" />
